@@ -1,0 +1,1217 @@
+/* ==========================================================================
+   TABLE OF CONTENTS:
+   1. Design Tokens & CSS Variables (:root & body.dark)
+   2. Reset & Global Base
+   3. Header & Sticky Glass Navigation
+   4. Mobile Navigation Menu
+   5. Hero Section
+   6. Cards Section (3 Cards in One Row with Flexbox & Gap)
+   7. Contact Section & Accessible Form
+   8. Footer
+   9. Neon Cursor Trail Canvas
+   10. Micro-interactions & Animations
+   11. Responsive Breakpoints
+   12. Accessibility (Focus States & Reduced Motion)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS & CSS VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+    /* Brand Palette - Premium Professional Blue */
+    --primary: #1d4ed8;
+    --primary-hover: #1e40af;
+    --primary-dark: #172554;
+    --primary-light: #3b82f6;
+    --primary-glow: rgba(29, 78, 216, 0.28);
+    --accent-cyan: #06b6d4;
+    --accent-sky: #0ea5e9;
+
+    /* Backgrounds & Surfaces */
+    --background: #f8fafc;
+    --background-subtle: #f1f5f9;
+    --background-mesh: 
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 90% 85%, rgba(6, 182, 212, 0.07) 0%, transparent 45%);
+    --card-bg: rgba(255, 255, 255, 0.88);
+    --card-bg-hover: rgba(255, 255, 255, 0.98);
+    --card-border: rgba(226, 232, 240, 0.9);
+    --card-border-hover: rgba(37, 99, 235, 0.35);
+    --nav-bg: rgba(248, 250, 252, 0.85);
+
+    /* Typography & Hierarchy */
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --text: #0f172a;
+    --text-heading: #0f172a;
+    --secondary-text: #475569;
+    --text-muted: #64748b;
+
+    /* Subtle Borders & Dividers */
+    --border: #e2e8f0;
+    --border-subtle: rgba(226, 232, 240, 0.7);
+
+    /* Layered Elevation & Shadows */
+    --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+    --shadow: 0 12px 30px -8px rgba(30, 58, 138, 0.08), 0 4px 12px rgba(15, 23, 42, 0.03);
+    --shadow-hover: 0 20px 40px -10px rgba(30, 58, 138, 0.16), 0 8px 16px rgba(15, 23, 42, 0.05);
+    --shadow-glow: 0 0 30px rgba(37, 99, 235, 0.25);
+
+    /* Badges & Chips */
+    --pill-bg: rgba(37, 99, 235, 0.08);
+    --pill-text: #1d4ed8;
+    --pill-border: rgba(37, 99, 235, 0.16);
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #1d4ed8 0%, #0284c7 60%, #06b6d4 100%);
+    --gradient-text: linear-gradient(135deg, #1d4ed8 0%, #0284c7 60%, #06b6d4 100%);
+    --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.75) 100%);
+
+    /* Focus Ring */
+    --focus-ring: rgba(37, 99, 235, 0.25);
+
+    /* Animation Timings */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark Mode Tokens (Strict Requirement #11: Handled via CSS variables) */
+body.dark {
+    /* Brand Palette - Electric Cyan & Sapphire */
+    --primary: #38bdf8;
+    --primary-hover: #7dd3fc;
+    --primary-dark: #0284c7;
+    --primary-light: #93c5fd;
+    --primary-glow: rgba(56, 189, 248, 0.3);
+    --accent-cyan: #38bdf8;
+    --accent-sky: #60a5fa;
+
+    /* Backgrounds & Surfaces */
+    --background: #080e1a;
+    --background-subtle: #0d1527;
+    --background-mesh: 
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(99, 102, 241, 0.07) 0%, transparent 50%);
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --card-bg-hover: rgba(30, 41, 59, 0.85);
+    --card-border: rgba(56, 189, 248, 0.16);
+    --card-border-hover: rgba(56, 189, 248, 0.45);
+    --nav-bg: rgba(8, 14, 26, 0.85);
+
+    /* Typography & Hierarchy */
+    --text: #f1f5f9;
+    --text-heading: #ffffff;
+    --secondary-text: #94a3b8;
+    --text-muted: #64748b;
+
+    /* Subtle Borders & Dividers */
+    --border: rgba(56, 189, 248, 0.14);
+    --border-subtle: rgba(51, 65, 85, 0.6);
+
+    /* Layered Elevation & Shadows */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.65), 0 0 1px rgba(56, 189, 248, 0.2);
+    --shadow-hover: 0 20px 45px -10px rgba(0, 0, 0, 0.85), 0 0 24px rgba(56, 189, 248, 0.22);
+    --shadow-glow: 0 0 35px rgba(56, 189, 248, 0.28);
+
+    /* Badges & Chips */
+    --pill-bg: rgba(56, 189, 248, 0.12);
+    --pill-text: #38bdf8;
+    --pill-border: rgba(56, 189, 248, 0.28);
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #818cf8 100%);
+    --gradient-text: linear-gradient(135deg, #38bdf8 0%, #60a5fa 50%, #c084fc 100%);
+    --gradient-card: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+
+    /* Focus Ring */
+    --focus-ring: rgba(56, 189, 248, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & GLOBAL BASE (Strict Requirement #13: box-sizing: border-box)
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    scroll-padding-top: 85px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--background);
+    background-image: var(--background-mesh);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* Reusable Container Utilities */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    padding-bottom: 80px;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--text-heading);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+}
+
+.gradient-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+/* Section Header Typography */
+.section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 50px auto;
+}
+
+.section-tag {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+}
+
+.section-header h2 {
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    margin-bottom: 12px;
+}
+
+.section-desc {
+    color: var(--secondary-text);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   3. HEADER & STICKY GLASS NAVIGATION (Strict Requirement #4, #5)
+   -------------------------------------------------------------------------- */
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Brand Logo (Name on the left) */
+.logo {
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-heading);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: baseline;
+    transition: transform var(--transition-fast);
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+.logo-dot {
+    color: var(--accent-cyan);
+    font-size: 2rem;
+    line-height: 0;
+    margin-left: 1px;
+}
+
+/* Nav links + theme toggle container on right */
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+/* Navigation Links (Home, About, Contact on right) */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--secondary-text);
+    font-weight: 600;
+    font-size: 0.98rem;
+    position: relative;
+    padding: 6px 2px;
+    transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    transition: width var(--transition-base);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Theme Toggle Button (Strict Requirement #10: toggles 'dark' on body) */
+.theme-container {
+    display: flex;
+    align-items: center;
+}
+
+.theme-toggle-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.theme-toggle-btn:hover {
+    transform: rotate(20deg) scale(1.08);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.theme-label-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    transition: background var(--transition-fast);
+}
+
+.hamburger-bar {
+    width: 24px;
+    height: 2px;
+    background-color: var(--text);
+    border-radius: 2px;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+/* Hamburger active transformation */
+.mobile-nav-toggle.active .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.mobile-nav-toggle.active .hamburger-bar:nth-child(2) {
+    opacity: 0;
+}
+.mobile-nav-toggle.active .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO SECTION (Strict Requirement #3: exactly one <h1> with Amira's name)
+   -------------------------------------------------------------------------- */
+.hero {
+    max-width: 1200px;
+    margin: 30px auto 0 auto;
+    padding: 40px 28px;
+    width: 100%;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.hero-text {
+    flex: 1.1;
+    max-width: 620px;
+}
+
+/* Status Greeting Badge */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    margin-bottom: 22px;
+}
+
+.badge-pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-cyan);
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.35); opacity: 0.5; }
+}
+
+.badge-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--primary);
+}
+
+/* Hero Typography */
+.hero h1 {
+    font-size: clamp(2.8rem, 5.2vw, 4.2rem);
+    line-height: 1.12;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+.description {
+    color: var(--secondary-text);
+    font-size: 1.12rem;
+    line-height: 1.75;
+    margin-bottom: 34px;
+}
+
+/* Hero Action CTAs */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 38px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gradient-primary);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px -4px var(--primary-glow);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+    border: none;
+    cursor: pointer;
+}
+
+.primary-btn:hover,
+.contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px -4px var(--primary-glow);
+    filter: brightness(1.06);
+}
+
+.btn-arrow {
+    font-size: 1.1rem;
+    transition: transform var(--transition-fast);
+}
+
+.primary-btn:hover .btn-arrow,
+.contact-btn:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    background: var(--card-bg);
+    color: var(--text-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 26px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.secondary-btn:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    background: var(--card-bg-hover);
+    color: var(--primary);
+}
+
+/* Hero Quick Highlight Tags */
+.hero-tags {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--secondary-text);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.hero-tag:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.tag-icon {
+    font-size: 1rem;
+}
+
+/* Profile Image Composition (Strict Requirement #6: One photo with descriptive alt) */
+.hero-image-wrapper {
+    flex: 0.9;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-glow {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    filter: blur(55px);
+    opacity: 0.35;
+    z-index: 0;
+    animation: glowFloat 6s infinite alternate ease-in-out;
+}
+
+@keyframes glowFloat {
+    0% { transform: scale(0.9) translate(-10px, -10px); opacity: 0.28; }
+    100% { transform: scale(1.1) translate(10px, 10px); opacity: 0.45; }
+}
+
+.image-frame {
+    position: relative;
+    z-index: 1;
+    width: 310px;
+    height: 310px;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    padding: 8px;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-hover);
+    transition: transform var(--transition-smooth), border-radius var(--transition-smooth);
+}
+
+.image-frame:hover {
+    transform: scale(1.03) rotate(1deg);
+    border-radius: 50%;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: inherit;
+    border: 4px solid var(--card-bg-solid);
+    display: block;
+}
+
+/* Floating Status Badges */
+.floating-chip {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    box-shadow: var(--shadow);
+    animation: floatingChip 4s infinite ease-in-out alternate;
+}
+
+.chip-top {
+    top: 15px;
+    left: -15px;
+    animation-delay: 0s;
+}
+
+.chip-bottom {
+    bottom: 20px;
+    right: -15px;
+    animation-delay: 2s;
+}
+
+@keyframes floatingChip {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+/* --------------------------------------------------------------------------
+   6. CARDS SECTION (Strict Requirement #7: 3 cards in 1 row with Flexbox & gap)
+   -------------------------------------------------------------------------- */
+.cards-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 28px;
+    width: 100%;
+}
+
+.cards-container {
+    display: flex;
+    gap: 26px;
+    justify-content: center;
+}
+
+.card {
+    flex: 1;
+    position: relative;
+    background: var(--card-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 36px 28px;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.card-accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    opacity: 0.7;
+    transition: opacity var(--transition-base), height var(--transition-base);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--card-border-hover);
+}
+
+.card:hover .card-accent-bar {
+    opacity: 1;
+    height: 5px;
+}
+
+.card-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.card-icon {
+    font-size: 32px;
+    line-height: 1;
+    transition: transform var(--transition-base);
+}
+
+.card:hover .card-icon-wrapper {
+    transform: scale(1.1);
+    background: var(--gradient-primary);
+}
+
+.card:hover .card-icon {
+    transform: rotate(6deg) scale(1.08);
+}
+
+.card h3 {
+    font-size: 1.45rem;
+    color: var(--primary);
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.card-description {
+    color: var(--secondary-text);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 22px;
+    flex-grow: 1;
+}
+
+.card-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.card-pill {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    border: 1px solid var(--pill-border);
+    transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.card:hover .card-pill {
+    transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   7. CONTACT SECTION & ACCESSIBLE FORM (Strict Requirements #8, #9)
+   -------------------------------------------------------------------------- */
+.contact-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+    width: 100%;
+}
+
+.contact-card-container {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 36px;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 44px;
+    box-shadow: var(--shadow);
+}
+
+/* Contact Info Side Panel */
+.contact-info-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    background: var(--background-subtle);
+    border: 1px solid var(--border-subtle);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.info-card:hover {
+    transform: translateX(4px);
+    border-color: var(--primary);
+}
+
+.info-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.info-details h4 {
+    font-size: 0.98rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.info-details p {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    line-height: 1.5;
+}
+
+/* Form Styles */
+.contact-form-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+/* Matching label and input IDs */
+label {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-heading);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-prefix-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 14px 16px 14px 46px;
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    color: var(--text);
+    background: var(--background-subtle);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder {
+    color: var(--text-muted);
+    opacity: 0.75;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    background: var(--card-bg-solid);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+/* Form validation hints */
+.input-hint {
+    font-size: 0.8rem;
+    color: #ef4444;
+    display: none;
+    margin-top: 2px;
+}
+
+.input-hint.visible {
+    display: block;
+}
+
+input.invalid {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+input.valid {
+    border-color: #10b981;
+}
+
+/* Submit Action Button */
+.submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--gradient-primary);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    font-weight: 700;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px -4px var(--primary-glow);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+    margin-top: 6px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -4px var(--primary-glow);
+    filter: brightness(1.05);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Form Submission Feedback Alert */
+.form-feedback {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    display: none;
+    margin-top: 8px;
+    animation: fadeIn 0.3s ease;
+}
+
+.form-feedback.success {
+    display: block;
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+body.dark .form-feedback.success {
+    background: rgba(16, 185, 129, 0.18);
+    color: #34d399;
+    border-color: rgba(52, 211, 153, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   8. FOOTER (Strict Requirement #12: One copyright line in footer)
+   -------------------------------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 34px 20px;
+    background: var(--nav-bg);
+    border-top: 1px solid var(--border-subtle);
+    color: var(--secondary-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+footer p {
+    letter-spacing: 0.2px;
+}
+
+/* --------------------------------------------------------------------------
+   9. NEON MOUSE TRAIL CANVAS (Strict Requirement: Smooth neon line)
+   -------------------------------------------------------------------------- */
+#cursor-trail {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* --------------------------------------------------------------------------
+   10. MICRO-INTERACTIONS & ENTRANCE ANIMATIONS
+   -------------------------------------------------------------------------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero,
+.cards-section,
+.contact-section {
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* --------------------------------------------------------------------------
+   11. RESPONSIVE DESIGN & MEDIA QUERIES
+   -------------------------------------------------------------------------- */
+
+/* Tablets & Medium Screens (<= 992px) */
+@media (max-width: 992px) {
+    .hero-content {
+        gap: 40px;
+    }
+
+    .cards-container {
+        gap: 20px;
+    }
+
+    .contact-card-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 32px;
+    }
+
+    .image-frame {
+        width: 270px;
+        height: 270px;
+    }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+    main {
+        gap: 70px;
+    }
+
+    .navbar {
+        padding: 14px 20px;
+    }
+
+    .mobile-nav-toggle {
+        display: flex;
+    }
+
+    /* Mobile Drawer Menu */
+    .nav-container {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 24px 20px 30px 20px;
+        gap: 24px;
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-130%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform var(--transition-base), opacity var(--transition-base);
+    }
+
+    .nav-container.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-link {
+        font-size: 1.15rem;
+        display: block;
+        padding: 8px;
+    }
+
+    /* Hero section stacking */
+    .hero {
+        padding: 20px 20px;
+        margin-top: 10px;
+    }
+
+    .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 36px;
+    }
+
+    .hero-text {
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2.6rem;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-tags {
+        justify-content: center;
+    }
+
+    .hero-image-wrapper {
+        width: 100%;
+    }
+
+    .image-frame {
+        width: 240px;
+        height: 240px;
+    }
+
+    .floating-chip {
+        display: none; /* Hide floating chips on small mobile to avoid screen overlap */
+    }
+
+    /* Cards stack gracefully on mobile */
+    .cards-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-card-container {
+        padding: 24px 20px;
+    }
+}
+
+/* Small Screens (<= 420px) */
+@media (max-width: 420px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .image-frame {
+        width: 210px;
+        height: 210px;
+    }
+
+    .card {
+        padding: 28px 20px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   12. ACCESSIBILITY & REDUCED MOTION (Strict Requirement Compliance)
+   -------------------------------------------------------------------------- */
+/* Visible keyboard focus indicators */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* Prefer Reduced Motion Query */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .badge-pulse,
+    .image-glow,
+    .floating-chip {
+        animation: none !important;
+    }
+}

@@ -1,0 +1,269 @@
+<!-- Name: Amira Abdelkader Elsayed Elmorsy Elkholy | Student ID: 224101396 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amira | Computer Science Student & Portfolio</title>
+    <meta name="description" content="Personal portfolio of Amira, a Computer Science student passionate about programming, technology, and building modern software.">
+    <meta name="theme-color" content="#1d4ed8">
+
+    <!-- Google Fonts: Outfit (Headings) & Plus Jakarta Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Interactive Neon Mouse Trail Canvas -->
+    <canvas id="cursor-trail" aria-hidden="true"></canvas>
+
+    <!-- Semantic Header with Sticky Glass Navigation -->
+    <header id="home">
+        <nav class="navbar" aria-label="Main Navigation">
+            <a href="#home" class="logo" aria-label="Amira Home">
+                <span class="logo-text">Amira</span><span class="logo-dot">.</span>
+            </a>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+
+            <!-- Navigation Links Container -->
+            <div class="nav-container" id="nav-container">
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+
+                <!-- Theme Toggle Button -->
+                <div class="theme-container">
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light and dark theme" aria-pressed="false" title="Switch Theme">
+                        <span class="theme-icon" id="theme-icon">🌙</span>
+                        <span class="theme-label-sr">Toggle Theme</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Semantic Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span class="badge-pulse"></span>
+                        <span class="badge-text">WELCOME TO MY PROFILE</span>
+                    </div>
+
+                    <!-- Single H1 containing student's name -->
+                    <h1>Hi, I'm <span class="gradient-text">Amira</span></h1>
+                    <h2 class="hero-subtitle">Computer Science Student</h2>
+
+                    <p class="description">
+                        I'm passionate about technology, programming, and learning new skills.
+                        I enjoy creating creative projects, solving challenging problems, and exploring modern ideas in software engineering.
+                    </p>
+
+                    <!-- Hero Actions & CTAs -->
+                    <div class="hero-actions">
+                        <a href="#contact" class="contact-btn primary-btn">
+                            <span>Contact Me</span>
+                            <span class="btn-arrow" aria-hidden="true">→</span>
+                        </a>
+                        <a href="#about-cards" class="secondary-btn">
+                            <span>Explore Details</span>
+                        </a>
+                    </div>
+
+                    <!-- Tech Feature Highlights -->
+                    <div class="hero-tags" aria-label="Key Strengths">
+                        <div class="hero-tag">
+                            <span class="tag-icon">💻</span>
+                            <span class="tag-name">Clean Code</span>
+                        </div>
+                        <div class="hero-tag">
+                            <span class="tag-icon">⚡</span>
+                            <span class="tag-name">Problem Solving</span>
+                        </div>
+                        <div class="hero-tag">
+                            <span class="tag-icon">🚀</span>
+                            <span class="tag-name">Fast Learner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Profile Image with Premium Ambient Frame -->
+                <div class="hero-image-wrapper">
+                    <div class="image-glow" aria-hidden="true"></div>
+                    <div class="image-frame">
+                        <img src="images/me.jpg" alt="A photo of Amira, Computer Science Student" class="profile-img">
+                    </div>
+                    <!-- Decorative Floating Badges -->
+                    <div class="floating-chip chip-top">
+                        <span class="chip-icon">🎓</span>
+                        <span class="chip-text">CS Major</span>
+                    </div>
+                    <div class="floating-chip chip-bottom">
+                        <span class="chip-icon">✨</span>
+                        <span class="chip-text">Aspiring Developer</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards Section: 3 Cards in One Row with Flexbox & Gap on Desktop -->
+        <section class="cards-section" id="about-cards">
+            <div class="section-header">
+                <span class="section-tag">PORTFOLIO HIGHLIGHTS</span>
+                <h2>More About Me</h2>
+                <p class="section-desc">
+                    A snapshot of the key skill sets I practice, the hobbies that drive my curiosity, and the goals that shape my journey in tech.
+                </p>
+            </div>
+
+            <div class="cards-container">
+                <!-- Card 1: My Skills -->
+                <div class="card" data-card="skills">
+                    <div class="card-accent-bar" aria-hidden="true"></div>
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon" role="img" aria-label="Computer icon">💻</span>
+                    </div>
+                    <h3>My Skills</h3>
+                    <p class="card-description">
+                        Programming, problem solving, teamwork, and creativity.
+                    </p>
+                    <div class="card-pills" aria-label="Skills List">
+                        <span class="card-pill">Programming</span>
+                        <span class="card-pill">Problem Solving</span>
+                        <span class="card-pill">Teamwork</span>
+                        <span class="card-pill">Creativity</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: My Hobbies -->
+                <div class="card" data-card="hobbies">
+                    <div class="card-accent-bar" aria-hidden="true"></div>
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon" role="img" aria-label="Art palette icon">🎨</span>
+                    </div>
+                    <h3>My Hobbies</h3>
+                    <p class="card-description">
+                        Learning new things, exploring technology, and discovering new interests.
+                    </p>
+                    <div class="card-pills" aria-label="Hobbies List">
+                        <span class="card-pill">Exploring Tech</span>
+                        <span class="card-pill">Continuous Learning</span>
+                        <span class="card-pill">Creative Coding</span>
+                        <span class="card-pill">New Interests</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: My Goals -->
+                <div class="card" data-card="goals">
+                    <div class="card-accent-bar" aria-hidden="true"></div>
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon" role="img" aria-label="Rocket icon">🚀</span>
+                    </div>
+                    <h3>My Goals</h3>
+                    <p class="card-description">
+                        Improving my skills and becoming a successful software developer.
+                    </p>
+                    <div class="card-pills" aria-label="Goals List">
+                        <span class="card-pill">Skill Mastery</span>
+                        <span class="card-pill">Software Engineering</span>
+                        <span class="card-pill">Building Solutions</span>
+                        <span class="card-pill">Career Growth</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <span class="section-tag">LET'S CONNECT</span>
+                <h2>Get In Touch</h2>
+                <p class="section-desc">
+                    Have an opportunity, question, or want to collaborate on a project? Feel free to reach out.
+                </p>
+            </div>
+
+            <div class="contact-card-container">
+                <!-- Academic & Professional Info Highlights -->
+                <div class="contact-info-panel">
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <div class="info-details">
+                            <h4>Specialization</h4>
+                            <p>Computer Science & Software Development</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">⚡</div>
+                        <div class="info-details">
+                            <h4>Availability</h4>
+                            <p>Open for Student Collaborations & Internships</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">💡</div>
+                        <div class="info-details">
+                            <h4>Mindset</h4>
+                            <p>Curious, proactive, and continuously improving</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form: Strict Requirement for Matching for & id -->
+                <div class="contact-form-panel">
+                    <form id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix-icon" aria-hidden="true">👤</span>
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required autocomplete="name">
+                            </div>
+                            <span class="input-hint" id="name-hint">Please enter your name</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix-icon" aria-hidden="true">✉️</span>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email">
+                            </div>
+                            <span class="input-hint" id="email-hint">Please enter a valid email address</span>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span>Send Message</span>
+                            <span class="btn-arrow" aria-hidden="true">→</span>
+                        </button>
+
+                        <!-- Live Accessible Form Status Notification -->
+                        <div class="form-feedback" id="form-feedback" role="status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Semantic Footer with Single Copyright Line -->
+    <footer>
+        <p>© 2026 Amira. All rights reserved.</p>
+    </footer>
+
+    <!-- Vanilla JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
